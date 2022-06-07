@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace C_Lab.Models
@@ -71,7 +70,7 @@ namespace C_Lab.Models
         }
 
         public void inputMarks() {
-
+                        
         }
 
         public void printMarks() {

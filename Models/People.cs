@@ -1,21 +1,32 @@
 using System;
+using System.Text.RegularExpressions;
 using System.Globalization;
 
 namespace C_Lab.Models
 {
     public class People {
-        private int _id;
-        public int ID
+        private string _id;
+        public string ID
         {
             get { return _id; }
-            set { _id = value; }
+            set { 
+                if (!Regex.IsMatch(value, @"^[0-9]{9}$")) 
+                    System.Console.WriteLine("Please check your ID");
+                else 
+                    _id = value; 
+            }
         }
 
         private string _fullName;
         public string FullName
         {
             get { return _fullName; }
-            set { _fullName = value; }
+            set { 
+                if (!Regex.IsMatch(value, @"^[A-Z a-z]{1,50}$")) 
+                    System.Console.WriteLine("Please check your FullName");
+                else 
+                    _fullName = value; 
+            }
         }
         
         private int _age;
@@ -31,8 +42,13 @@ namespace C_Lab.Models
         {
             get { return _birthDay; }
             set { 
-                _birthDay = value; 
-                Age = 0;
+                DateTime dt1 = DateTime.Parse("01/01/1900");
+                DateTime dt2 = DateTime.Now;
+                if (dt1 <= value && value <= dt2) {
+                    _birthDay = value; 
+                    Age = dt2.Year - value.Year;
+                } else 
+                    System.Console.WriteLine("Please check your Birthday");
             }
         }
         
@@ -40,26 +56,41 @@ namespace C_Lab.Models
         public string Address
         {
             get { return _address; }
-            set { _address = value; }
+            set {
+                if (value.Trim().Equals(""))
+                    System.Console.WriteLine("Please check your Address"); 
+                else 
+                    _address = value; }
         }
         
         private string _email;
         public string Email
         {
             get { return _email; }
-            set { _email = value; }
+            set { 
+                if (!Regex.IsMatch(value, @"^[A-Za-z0-9]+@+[A-Za-z0-9]+.+[A-Za-z0-9]$")) 
+                    System.Console.WriteLine("Please check your Email");
+                else 
+                    _email = value; 
+            }
         }
         
         private string _phone;
         public string Phone
         {
             get { return _phone; }
-            set { _phone = value; }
+            set { 
+                if (!Regex.IsMatch(value, @"^[0-9]{10,11}")) 
+                    System.Console.WriteLine("Please check your Phone");
+                else 
+                    _phone = value; 
+            }
         }
 
         public People(){
-            _id = _age = 0;
-            _fullName = _address = _email = _phone = "";
+            _age = 0;
+            _id = _fullName = _address = _email = _phone = "";
+            _birthDay = new DateTime();
         }
 
         public People(string FullName)
@@ -67,7 +98,7 @@ namespace C_Lab.Models
             this._fullName = FullName;
         }
 
-        public People(int ID, string FullName, DateTime BirthDay, string Address, string Email, string Phone) {
+        public People(string ID, string FullName, DateTime BirthDay, string Address, string Email, string Phone) {
             this._id = ID;
             this._fullName = FullName;
             this._birthDay = BirthDay;
@@ -81,22 +112,49 @@ namespace C_Lab.Models
         }
 
         public void inputPeople() {
-            System.Console.WriteLine("Please input ID: ");
-            this.ID = Convert.ToInt32(Console.ReadLine());
-            System.Console.WriteLine("Please input FullName");
-            this.FullName = Console.ReadLine();
-            System.Console.WriteLine("Please input BirthDay");
-            this.BirthDay = DateTime.Parse(Console.ReadLine());
-            System.Console.WriteLine("Please input Address");
-            this.Address = Console.ReadLine();
-            System.Console.WriteLine("Please input Email");
-            this.Email = Console.ReadLine();
-            System.Console.WriteLine("Please input Phone");
-            this.Phone = Console.ReadLine();
+            while(true) {
+                System.Console.Write("Please input ID: ");
+                this.ID = Console.ReadLine();
+                if (!this.ID.Equals("")) break;
+            }
+
+            while(true) {
+                System.Console.Write("Please input FullName: ");
+                this.FullName = Console.ReadLine();
+                if (!this.FullName.Equals("")) break;     
+            }
+
+            while(true) {
+                try {
+                System.Console.Write("Please input BirthDay: ");
+                this.BirthDay = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                } catch (Exception e) {
+                    //nothing
+                }
+                if (this.BirthDay != (new DateTime())) break;
+            }
+            
+            while(true) {
+                System.Console.Write("Please input Address: ");
+                this.Address = Console.ReadLine();
+                if (!this.Address.Equals("")) break;   
+            }
+
+            while(true) {
+                System.Console.Write("Please input Email: ");
+                this.Email = Console.ReadLine();
+                if (!this.Email.Equals("")) break;   
+            }
+
+            while(true) {
+                System.Console.Write("Please input Phone: ");
+                this.Phone = Console.ReadLine();
+                if (!this.Phone.Equals("")) break;   
+            }
         }
 
         public void printInfo() {
-            System.Console.WriteLine($"Full name: {FullName} - Birthday: {BirthDay}");
+            System.Console.Write($"Full name: {FullName} - Birthday: {BirthDay.ToString("dd/MM/yyyy")}");
         }
         
     }
