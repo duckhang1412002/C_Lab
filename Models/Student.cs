@@ -31,15 +31,15 @@ namespace C_Lab.Models
             }
         }
         
-        private int _subject;
-        public int Subject
+        private int _marksSize;
+        public int MarksSize
         {
-            get { return _subject; }
+            get { return _marksSize; }
             set { 
-                if (value < 0 || value > 100) 
+                if (value < 0) 
                     System.Console.WriteLine("Please check your Number of Subject !!");
                 else 
-                    _subject = value; 
+                    _marksSize = value; 
             }
         }
         
@@ -59,12 +59,12 @@ namespace C_Lab.Models
 
         public Student() : base() {
             _rollNo = _classNo = "";    
-            _subject = 0;
+            _marksSize = 0;
         }
 
         public Student(string FullName) : base(FullName) {
              _rollNo = _classNo = "";  
-             _subject = 0;
+             _marksSize = 0;
         }
 
         public Student(string ID, string FullName, DateTime BirthDay, string Address, string Email, string Phone, string RollNo, string ClassNo) 
@@ -76,10 +76,10 @@ namespace C_Lab.Models
         //not yet done
         public double getAvgMark() {
             double avg = 0.0;
-            for (int i = 0; i < _subject; ++i) {
+            for (int i = 0; i < _marksSize; ++i) {
                 avg += _marks[i];
             }
-            return (_subject > 0) ? avg/_subject : 0;
+            return (_marksSize > 0) ? avg/_marksSize : 0;
         }
 
         public void inputStudent() {
@@ -99,15 +99,15 @@ namespace C_Lab.Models
             while(true) {
                 try {
                     System.Console.Write("Please input Number of Subject: ");
-                    this.Subject = Convert.ToInt32(Console.ReadLine());
+                    this.MarksSize = Convert.ToInt32(Console.ReadLine());
                 } catch (Exception e) {
                     //nothing
                 }
-                if (_subject != 0) break;        
+                if (_marksSize != 0) break;        
             }
 
-            _marks = new int[_subject];
-            for (int i = 0; i < Subject; ++i) {
+            _marks = new int[_marksSize];
+            for (int i = 0; i < MarksSize; ++i) {
                 while(true) {
                     try {
                         System.Console.Write($"Please input Marks for Subject {i+1}: ");

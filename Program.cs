@@ -41,7 +41,7 @@ namespace C_Lab {
             System.Console.WriteLine("----------------------\n");
         }
 
-        private void Menu() {
+        public void Menu() {
             Console.Clear();
             while(true) {
                 bool stop = false;
@@ -101,60 +101,10 @@ namespace C_Lab {
     }
 
     class Program {
-        static void ManageSubject() {
-            while(true) {
-                bool stop = false;
-                System.Console.WriteLine("----- Manage Subject -----");
-                System.Console.WriteLine("1. Manage Student");
-                System.Console.WriteLine("2. Manage Teacher");
-                System.Console.WriteLine("3. Manage Subject");
-                System.Console.WriteLine("4. Manage Marks");
-                System.Console.WriteLine("5. Exit");
-                while(true) {
-                    System.Console.Write("Please choose one (1-5): ");
-                    string choice = Console.ReadLine();
-                    if (!Regex.IsMatch(choice, @"^[1-5]{1}$")) {
-                        System.Console.WriteLine("Please choose a valid option!");
-                    } else {
-                        if (choice.Equals("1")) 
-                            ManageStudent();
-                        else 
-                            stop = true;
-                        break;
-                    }  
-                }
-                if (stop) break;  
-            }
-        }
-
-        static void ManageMarks() {
-            while(true) {
-                bool stop = false;
-                System.Console.WriteLine("----- Manage Marks -----");
-                System.Console.WriteLine("1. Manage Student");
-                System.Console.WriteLine("2. Manage Teacher");
-                System.Console.WriteLine("3. Manage Subject");
-                System.Console.WriteLine("4. Manage Marks");
-                System.Console.WriteLine("5. Exit");
-                while(true) {
-                    System.Console.Write("Please choose one (1-5): ");
-                    string choice = Console.ReadLine();
-                    if (!Regex.IsMatch(choice, @"^[1-5]{1}$")) {
-                        System.Console.WriteLine("Please choose a valid option!");
-                    } else {
-                        if (choice.Equals("1")) 
-                            ManageStudent();
-                        else 
-                            stop = true;
-                        break;
-                    }  
-                }
-                if (stop) break;  
-            }
-        }
-        */
+        
         static void Main(string[] args) {
             ManageStudent manageStudent = new ManageStudent();
+            ManageTeacher manageTeacher = new ManageTeacher();
             while(true) {
                 bool stop = false;
                 System.Console.WriteLine("------- MAIN MENU -------");
