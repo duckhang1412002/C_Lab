@@ -76,11 +76,51 @@ namespace C_Lab.Models
         }
 
         public void inputTeacher() {
+            base.inputPeople();
+            while(true) {
+                System.Console.Write("Please input Teacher Code: ");
+                this.TeacherCode = Console.ReadLine();
+                if (!this.TeacherCode.Equals("")) break;
+            }
+
+            while(true) {
+                try {
+                System.Console.Write("Please input Joined Date: ");
+                this.JoinedDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                } catch (Exception e) {
+                    //nothing
+                }
+                if (this.JoinedDate != (new DateTime())) break;
+            }
+
+            while(true) {
+                try {
+                    System.Console.Write("Please input Number of Subject: ");
+                    this.SubjectsSize = Convert.ToInt32(Console.ReadLine());
+                } catch (Exception e) {
+                    //nothing
+                }
+                if (SubjectsSize != 0) break;        
+            }
+
+            _subjects = new int[SubjectsSize];
+            for (int i = 0; i < SubjectsSize; ++i) {
+                while(true) {
+                    try {
+                        System.Console.Write($"Please input Marks for Subject {i+1}: ");
+                        this[i] = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception e) {
+                        //nothing
+                    }
+                    if (this[i] != 0) break;           
+                }
+            }
             
         }
 
         public void printInfo() {
-
+            base.printInfo();
+            System.Console.WriteLine($" - TeacherCode: {TeacherCode} - Joined Date: {JoinedDate.ToString("dd/MM/yyyy")}");          
         }
 
     }

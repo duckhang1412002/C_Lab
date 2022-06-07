@@ -122,6 +122,8 @@ namespace C_Lab {
                     } else {
                         if (choice.Equals("1")) 
                             manageStudent.Menu();
+                        else if (choice.Equals("2"))
+                            manageTeacher.Menu();
                         else 
                             stop = true;
                             
