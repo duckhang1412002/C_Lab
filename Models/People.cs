@@ -68,7 +68,7 @@ namespace C_Lab.Models
         {
             get { return _email; }
             set { 
-                if (!Regex.IsMatch(value, @"^[A-Za-z0-9]+@+[A-Za-z0-9]+.+[A-Za-z0-9]$")) 
+                if (!Regex.IsMatch(value, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")) 
                     System.Console.WriteLine("Please check your Email");
                 else 
                     _email = value; 
@@ -113,7 +113,7 @@ namespace C_Lab.Models
 
         public void inputPeople() {
             while(true) {
-                System.Console.Write("Please input ID: ");
+                System.Console.Write("Please input ID(9 digits): ");
                 this.ID = Console.ReadLine();
                 if (!this.ID.Equals("")) break;
             }
@@ -128,8 +128,11 @@ namespace C_Lab.Models
                 try {
                 System.Console.Write("Please input BirthDay: ");
                 this.BirthDay = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                } catch (Exception e) {
-                    System.Console.WriteLine(e);
+                } 
+                #pragma warning disable 0168 
+                catch (Exception) 
+                {
+                    //nothing
                 }
                 if (this.BirthDay != (new DateTime())) break;
             }

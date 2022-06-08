@@ -87,8 +87,8 @@ namespace C_Lab.Models
                 try {
                 System.Console.Write("Please input Joined Date: ");
                 this.JoinedDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                } catch (Exception e) {
-                    System.Console.WriteLine(e);
+                } catch (Exception) {
+                    //System.Console.WriteLine(e);
                 }
                 if (this.JoinedDate != (new DateTime())) break;
             }
@@ -97,8 +97,8 @@ namespace C_Lab.Models
                 try {
                     System.Console.Write("Please input Number of Subject: ");
                     this.SubjectsSize = Convert.ToInt32(Console.ReadLine());
-                } catch (Exception e) {
-                    System.Console.WriteLine(e);
+                } catch (Exception) {
+                    //System.Console.WriteLine(e);
                 }
                 if (SubjectsSize != 0) break;        
             }
@@ -109,8 +109,8 @@ namespace C_Lab.Models
                     try {
                         System.Console.Write($"Please input Subject name {i+1}: ");
                         this[i] = (Console.ReadLine());
-                    } catch (Exception e) {
-                        System.Console.WriteLine(e);
+                    } catch (Exception) {
+                        //System.Console.WriteLine(e);
                     }
                     if (!this[i].Equals("")) break;           
                 }
@@ -118,7 +118,7 @@ namespace C_Lab.Models
             
         }
 
-        public void printInfo() {
+        public new void printInfo() {
             base.printInfo();
             System.Console.WriteLine($" - TeacherCode: {TeacherCode} - Joined Date: {JoinedDate.ToString("dd/MM/yyyy")}");          
         }

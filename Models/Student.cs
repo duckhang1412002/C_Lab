@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace C_Lab.Models
 {
@@ -85,13 +86,13 @@ namespace C_Lab.Models
         public void inputStudent() {
             base.inputPeople();
             while(true) {
-                System.Console.Write("Please input Student RollNo: ");
+                System.Console.Write("Please input Student RollNo(A12001-A12999): ");
                 this.RollNo = Console.ReadLine();
                 if (!this.RollNo.Equals("")) break;
             }
 
             while(true) {
-                System.Console.Write("Please input Student ClassNo: ");
+                System.Console.Write("Please input Student ClassNo(Ex: CP201210G17 or DM201301M05): ");
                 this.ClassNo = Console.ReadLine();
                 if (!this.ClassNo.Equals("")) break;
             }
@@ -100,8 +101,8 @@ namespace C_Lab.Models
                 try {
                     System.Console.Write("Please input Number of Subject: ");
                     this.MarksSize = Convert.ToInt32(Console.ReadLine());
-                } catch (Exception e) {
-                    System.Console.WriteLine(e);
+                } catch (Exception) {
+                    //nothing
                 }
                 if (_marksSize != 0) break;        
             }
@@ -112,15 +113,15 @@ namespace C_Lab.Models
                     try {
                         System.Console.Write($"Please input Marks for Subject {i+1}: ");
                         this[i] = Convert.ToInt32(Console.ReadLine());
-                    } catch (Exception e) {
-                        System.Console.WriteLine(e);
+                    } catch (Exception) {
+                        //nothing
                     }
                     if (this[i] != 0) break;           
                 }
             }
         }
 
-        public void printInfo() {
+        public new void printInfo() {
             base.printInfo();
             System.Console.WriteLine($" - RollNo: {RollNo} - ClassNo: {ClassNo}");
         }

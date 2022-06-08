@@ -100,7 +100,9 @@ namespace C_Lab.Models
         }
 
         public void printMarks() {
-
+            System.Console.Write($"RollNo: {RollNo} -- StudentName: {StudentName} -- Subject: {Subject} -- Mark: {base.Mark}");
+            if (base.checkPasss() == true) System.Console.WriteLine("-- Status: Passed");
+            else System.Console.WriteLine("-- Status: Failed");
         }
         
         public override bool getBonus(){

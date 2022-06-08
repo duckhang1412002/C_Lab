@@ -63,6 +63,6 @@ namespace C_Lab.Models
         
         public bool checkPasss() => (Mark >= PassLevel);
         
-        public abstract bool getBonus();
+        public abstract bool getBonus();    
     }
 }
