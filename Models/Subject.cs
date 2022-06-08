@@ -73,14 +73,29 @@ namespace C_Lab.Models
         public override string ToString() => $"{SubjectCode} -- {SubjectName} -- {getTotalLessons()}";
     
         public void inputSubject() {
-            System.Console.WriteLine("Please input Subject Code: ");
-            this.SubjectCode = Console.ReadLine();
-            System.Console.WriteLine("Please input Subject Name: ");
-            this.SubjectName = Console.ReadLine();
-            System.Console.WriteLine("Please input number of Theory lesson");
-            this.Theory = Convert.ToInt32(Console.ReadLine());
-            System.Console.WriteLine("Please input number of Practice lesson");
-            this.Practice = Convert.ToInt32(Console.ReadLine());
+            while(true) {
+                System.Console.WriteLine("Please input Subject Code: ");
+                this.SubjectCode = Console.ReadLine();
+                if (!this.SubjectCode.Equals("")) break;
+            }
+
+            while(true) {
+                System.Console.WriteLine("Please input Subject Name: ");
+                this.SubjectName = Console.ReadLine();
+                if (!this.SubjectName.Equals("")) break;
+            }
+
+            while(true) {
+                System.Console.WriteLine("Please input number of Theory lesson");
+                this.Theory = Convert.ToInt32(Console.ReadLine());
+                if (Theory != 0) break;
+            }
+
+            while(true) {
+                System.Console.WriteLine("Please input number of Practice lesson");
+                this.Practice = Convert.ToInt32(Console.ReadLine());
+                if (Practice != 0) break;
+            }
         }
 
         public void printInfo() {

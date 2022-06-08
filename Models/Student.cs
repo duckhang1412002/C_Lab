@@ -101,7 +101,7 @@ namespace C_Lab.Models
                     System.Console.Write("Please input Number of Subject: ");
                     this.MarksSize = Convert.ToInt32(Console.ReadLine());
                 } catch (Exception e) {
-                    //nothing
+                    System.Console.WriteLine(e);
                 }
                 if (_marksSize != 0) break;        
             }
@@ -113,7 +113,7 @@ namespace C_Lab.Models
                         System.Console.Write($"Please input Marks for Subject {i+1}: ");
                         this[i] = Convert.ToInt32(Console.ReadLine());
                     } catch (Exception e) {
-                        //nothing
+                        System.Console.WriteLine(e);
                     }
                     if (this[i] != 0) break;           
                 }

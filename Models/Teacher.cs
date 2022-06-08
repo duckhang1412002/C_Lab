@@ -46,14 +46,14 @@ namespace C_Lab.Models
             }
         }
 
-        private int[] _subjects;
-        public int this[int index]
+        private string[] _subjects;
+        public string this[int index]
         {
             get { return _subjects[index]; }
             set { 
-                if (_subjects[index] < 0 || _subjects[index] > 100) {
-                    System.Console.WriteLine("Please check your Marks !!");
-                    _subjects[index] = 0;
+                if (_subjects[index].Trim().Equals("")) {
+                    System.Console.WriteLine("Please check your Subject !!");
+                    _subjects[index] = "";
                 } else 
                     _subjects[index] = value; 
             }
@@ -88,7 +88,7 @@ namespace C_Lab.Models
                 System.Console.Write("Please input Joined Date: ");
                 this.JoinedDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 } catch (Exception e) {
-                    //nothing
+                    System.Console.WriteLine(e);
                 }
                 if (this.JoinedDate != (new DateTime())) break;
             }
@@ -98,21 +98,21 @@ namespace C_Lab.Models
                     System.Console.Write("Please input Number of Subject: ");
                     this.SubjectsSize = Convert.ToInt32(Console.ReadLine());
                 } catch (Exception e) {
-                    //nothing
+                    System.Console.WriteLine(e);
                 }
                 if (SubjectsSize != 0) break;        
             }
 
-            _subjects = new int[SubjectsSize];
+            _subjects = new string[SubjectsSize];
             for (int i = 0; i < SubjectsSize; ++i) {
                 while(true) {
                     try {
-                        System.Console.Write($"Please input Marks for Subject {i+1}: ");
-                        this[i] = Convert.ToInt32(Console.ReadLine());
+                        System.Console.Write($"Please input Subject name {i+1}: ");
+                        this[i] = (Console.ReadLine());
                     } catch (Exception e) {
-                        //nothing
+                        System.Console.WriteLine(e);
                     }
-                    if (this[i] != 0) break;           
+                    if (!this[i].Equals("")) break;           
                 }
             }
             

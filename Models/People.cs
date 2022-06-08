@@ -129,7 +129,7 @@ namespace C_Lab.Models
                 System.Console.Write("Please input BirthDay: ");
                 this.BirthDay = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 } catch (Exception e) {
-                    //nothing
+                    System.Console.WriteLine(e);
                 }
                 if (this.BirthDay != (new DateTime())) break;
             }

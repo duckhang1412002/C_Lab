@@ -69,8 +69,34 @@ namespace C_Lab.Models
             this._testTime = TestTime;
         }
 
-        public void inputMarks() {
-                        
+        public void inputMarks_Subject() {
+            while(true) {
+                System.Console.Write("Please input Student RollNo(A12001-A12999): ");
+                this.RollNo = Console.ReadLine();
+                if (!this.RollNo.Equals("")) break;
+            }
+
+            while(true) {
+                System.Console.Write("Please input Student Name: ");
+                this.StudentName = Console.ReadLine();
+                if (!this.StudentName.Equals("")) break;     
+            }
+
+            while(true) {
+                System.Console.WriteLine("Please input Subject Name: ");
+                this.Subject = Console.ReadLine();
+                if (!this.Subject.Equals("")) break;
+            }
+                
+            while(true) {
+                try {
+                    System.Console.Write("Please input Testing time for Subject: ");
+                    this.TestTime = Convert.ToInt32(Console.ReadLine());
+                } catch (Exception e) {
+                    System.Console.WriteLine(e);
+                }
+                if (TestTime != 0) break;        
+            }
         }
 
         public void printMarks() {

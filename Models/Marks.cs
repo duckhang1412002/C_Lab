@@ -1,3 +1,5 @@
+using System;
+
 namespace C_Lab.Models
 {
     public abstract class Marks
@@ -35,6 +37,28 @@ namespace C_Lab.Models
         {
             this._mark = Mark;
             this._passLevel = PassLevel; 
+        }
+
+        public void inputMarks() {
+            while(true) {
+                try {
+                    System.Console.Write("Please input Marks of Subject(0-100): ");
+                    this.Mark = Convert.ToInt32(Console.ReadLine());
+                } catch (Exception e) {
+                    System.Console.WriteLine(e);
+                }
+                if (Mark != 0) break;        
+            }
+
+            while(true) {
+                try {
+                    System.Console.Write("Please input Pass Level for Subject(40-100): ");
+                    this.PassLevel = Convert.ToInt32(Console.ReadLine());
+                } catch (Exception e) {
+                    System.Console.WriteLine(e);
+                }
+                if (PassLevel != 0) break;        
+            }
         }
         
         public bool checkPasss() => (Mark >= PassLevel);
