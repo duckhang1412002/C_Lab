@@ -7,10 +7,6 @@ using C_Lab.Models;
     Author: KhangNDCE160286
 ***/
 namespace C_Lab {
-    // 
-    // 
-    // 
-    // static List<Marks> marks = new List<Marks>();
     class ManageStudent {
         public static List<Student> students = new List<Student>();
         private void InputStudent() {
@@ -198,22 +194,12 @@ namespace C_Lab {
             marks.Add(mark);
         }
 
-        private void DisplayTotalLessons() {
-            System.Console.WriteLine("\n---- Marks List ----");
-            int cnt = 0;
-            foreach (var mark in marks) {
-                System.Console.Write($"{++cnt}. ");
-                //System.Console.WriteLine($"Marks name: {subject.SubjectName} - Total Lessons: {subject.getTotalLessons()}");
-            }  
-            System.Console.WriteLine("----------------------\n");
-        }
-
         private void DisplayMarks() {
             System.Console.WriteLine("\n---- Marks List ----");
             int cnt = 0;
             foreach (var mark in marks) {
                 System.Console.Write($"{++cnt}. ");
-                //mark.printInfo();
+                mark.printMarks();
             } 
             System.Console.WriteLine("----------------------\n");
         }
@@ -223,7 +209,7 @@ namespace C_Lab {
             int cnt = 0;
             foreach (var mark in marks) {
                 System.Console.Write($"{++cnt}. ");
-                //mark.printInfo();
+                mark.printStatus();
             } 
             System.Console.WriteLine("----------------------\n");
         }
@@ -234,8 +220,8 @@ namespace C_Lab {
                 bool stop = false;
                 System.Console.WriteLine("----- Manage Marks -----");
                 System.Console.WriteLine("1. Input Marks");
-                System.Console.WriteLine("2. Display Subject Total lessons");
-                System.Console.WriteLine("3. Display Subject Information");
+                System.Console.WriteLine("2. Display Student Status");
+                System.Console.WriteLine("3. Display Student Marks");
                 System.Console.WriteLine("4. Back");
                 while(true) {
                     System.Console.Write("Please choose one (1-4): ");
@@ -246,7 +232,7 @@ namespace C_Lab {
                         if (choice.Equals("1")) 
                             InputMarks();
                         else if (choice.Equals("2")) 
-                            DisplayTotalLessons();
+                            DisplayPassStatus();
                         else if (choice.Equals("3"))
                             DisplayMarks();
                         else 
@@ -260,7 +246,6 @@ namespace C_Lab {
     }
 
     class Program {
-        
         static void Main(string[] args) {
             ManageStudent manageStudent = new ManageStudent();
             ManageTeacher manageTeacher = new ManageTeacher();
@@ -269,11 +254,11 @@ namespace C_Lab {
             while(true) {
                 bool stop = false;
                 System.Console.WriteLine("------- MAIN MENU -------");
-                System.Console.WriteLine("| 1. Manage Student     |");
-                System.Console.WriteLine("| 2. Manage Teacher     |");
-                System.Console.WriteLine("| 3. Manage Subject     |");
-                System.Console.WriteLine("| 4. Manage Marks       |");
-                System.Console.WriteLine("| 5. Exit               |");
+                System.Console.WriteLine("|   1. Manage Student   |");
+                System.Console.WriteLine("|   2. Manage Teacher   |");
+                System.Console.WriteLine("|   3. Manage Subject   |");
+                System.Console.WriteLine("|   4. Manage Marks     |");
+                System.Console.WriteLine("|   5. Exit             |");
                 System.Console.WriteLine("------- MAIN MENU -------");
                 while(true) {
                     System.Console.Write("Please choose one (1-5): ");

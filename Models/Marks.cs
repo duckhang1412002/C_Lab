@@ -4,33 +4,35 @@ namespace C_Lab.Models
 {
     public abstract class Marks
     {
-        private int _mark;
+        protected int _mark;
         public int Mark
         {
             get { return _mark; }
             set {
-                if (value < 0 || value > 100) 
+                if (value < 0 || value > 100) {
                     System.Console.WriteLine("Please check your mark input"); 
-                else 
+                    _mark = -1;
+                } else 
                     _mark = value; 
             }
         }
 
-        private int _passLevel;
+        protected int _passLevel;
         public int PassLevel
         {
             get { return _passLevel; }
             set {
-                if (value < 40 || value > 100) 
+                if (value < 40 || value > 100) {
                     System.Console.WriteLine("Please check your mark input"); 
-                else 
+                    _passLevel = -1;
+                } else 
                     _passLevel = value; 
             }
         }
 
         public Marks()
         {
-            _mark = _passLevel = 0;
+            _mark = _passLevel = -1;
         }
 
         public Marks(int Mark, int PassLevel)
@@ -47,7 +49,7 @@ namespace C_Lab.Models
                 } catch (Exception e) {
                     System.Console.WriteLine(e);
                 }
-                if (Mark != 0) break;        
+                if (Mark != -1) break;        
             }
 
             while(true) {
@@ -57,11 +59,11 @@ namespace C_Lab.Models
                 } catch (Exception e) {
                     System.Console.WriteLine(e);
                 }
-                if (PassLevel != 0) break;        
+                if (PassLevel != -1) break;        
             }
         }
         
-        public bool checkPasss() => (Mark >= PassLevel);
+        public bool checkPass() => (Mark >= PassLevel);
         
         public abstract bool getBonus();    
     }

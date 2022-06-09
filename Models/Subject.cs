@@ -12,7 +12,7 @@ namespace C_Lab.Models
             get { return _subjectCode; }
             set {       
                 if (!Regex.IsMatch(value, @"^[a-zA-Z]{6}$")) {
-                    System.Console.WriteLine("Please check your input");
+                    System.Console.WriteLine("Please check your SubjectCode (6 characters)");
                 } else {
                     _subjectCode = value;
                 }
@@ -24,8 +24,8 @@ namespace C_Lab.Models
         {
             get { return _subjectName; }
             set { 
-                if (value.Length > 50) 
-                    System.Console.WriteLine("Please check your input");
+                if (value.Length > 50 || value.Length == 0) 
+                    System.Console.WriteLine("Please check your SubjectName (can not be null and less than 50 charaters)");
                 else 
                     _subjectName = value; 
             }
@@ -38,7 +38,7 @@ namespace C_Lab.Models
             get { return _practice; }
             set { 
                 if (value < 0 || value > 100) 
-                    System.Console.WriteLine("Please check your input");
+                    System.Console.WriteLine("Please check Number of Practice lesson(0-100)");
                 else 
                     _practice = value; 
             }
@@ -50,7 +50,7 @@ namespace C_Lab.Models
             get { return _theory; }
             set { 
                 if (value < 0 || value > 100) 
-                    System.Console.WriteLine("Please check your input");
+                    System.Console.WriteLine("Please check Number of Theory lesson(0-100)");
                 else 
                     _theory = value; 
             }
@@ -58,7 +58,7 @@ namespace C_Lab.Models
 
         public Subject() {
             _subjectCode = _subjectName = "";
-            _theory = _practice = 0;    
+            _theory = _practice = -1;    
         }
 
         public Subject(string SubjectCode, string SubjectName, int Theory, int Practice) {
@@ -87,14 +87,18 @@ namespace C_Lab.Models
 
             while(true) {
                 System.Console.WriteLine("Please input number of Theory lesson");
-                this.Theory = Convert.ToInt32(Console.ReadLine());
-                if (Theory != 0) break;
+                try {
+                    this.Theory = Convert.ToInt32(Console.ReadLine());
+                } catch (Exception) {}
+                if (Theory != -1) break;
             }
 
             while(true) {
                 System.Console.WriteLine("Please input number of Practice lesson");
+                try {
                 this.Practice = Convert.ToInt32(Console.ReadLine());
-                if (Practice != 0) break;
+                } catch (Exception) {}
+                if (Practice != -1) break;
             }
         }
 

@@ -5,19 +5,19 @@ using System.Globalization;
 namespace C_Lab.Models
 {
     public class People {
-        private string _id;
+        protected string _id;
         public string ID
         {
             get { return _id; }
             set { 
                 if (!Regex.IsMatch(value, @"^[0-9]{9}$")) 
-                    System.Console.WriteLine("Please check your ID");
+                    System.Console.WriteLine("Please check your ID(9 digit number)");
                 else 
                     _id = value; 
             }
         }
 
-        private string _fullName;
+        protected string _fullName;
         public string FullName
         {
             get { return _fullName; }
@@ -29,7 +29,7 @@ namespace C_Lab.Models
             }
         }
         
-        private int _age;
+        protected int _age;
         public int Age
         {
             get { return _age; }
@@ -37,7 +37,7 @@ namespace C_Lab.Models
         }
         
 
-        private DateTime _birthDay;
+        protected DateTime _birthDay;
         public DateTime BirthDay
         {
             get { return _birthDay; }
@@ -48,11 +48,11 @@ namespace C_Lab.Models
                     _birthDay = value; 
                     Age = dt2.Year - value.Year;
                 } else 
-                    System.Console.WriteLine("Please check your Birthday");
+                    System.Console.WriteLine("Please check your Birthday (dd/mm/yyyy)");
             }
         }
         
-        private string _address;
+        protected string _address;
         public string Address
         {
             get { return _address; }
@@ -63,25 +63,25 @@ namespace C_Lab.Models
                     _address = value; }
         }
         
-        private string _email;
+        protected string _email;
         public string Email
         {
             get { return _email; }
             set { 
                 if (!Regex.IsMatch(value, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")) 
-                    System.Console.WriteLine("Please check your Email");
+                    System.Console.WriteLine("Please check your Email (Ex: abc@email.com)");
                 else 
                     _email = value; 
             }
         }
         
-        private string _phone;
+        protected string _phone;
         public string Phone
         {
             get { return _phone; }
             set { 
                 if (!Regex.IsMatch(value, @"^[0-9]{10,11}")) 
-                    System.Console.WriteLine("Please check your Phone");
+                    System.Console.WriteLine("Please check your Phone (10 or 11 numbers)");
                 else 
                     _phone = value; 
             }
@@ -126,7 +126,7 @@ namespace C_Lab.Models
 
             while(true) {
                 try {
-                System.Console.Write("Please input BirthDay: ");
+                System.Console.Write("Please input BirthDay (dd/mm/yyyy): ");
                 this.BirthDay = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 } 
                 #pragma warning disable 0168 
@@ -144,13 +144,13 @@ namespace C_Lab.Models
             }
 
             while(true) {
-                System.Console.Write("Please input Email: ");
+                System.Console.Write("Please input Email (Ex: abc@email.com): ");
                 this.Email = Console.ReadLine();
                 if (!this.Email.Equals("")) break;   
             }
 
             while(true) {
-                System.Console.Write("Please input Phone: ");
+                System.Console.Write("Please input Phone (10 or 11 digits): ");
                 this.Phone = Console.ReadLine();
                 if (!this.Phone.Equals("")) break;   
             }

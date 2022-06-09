@@ -12,7 +12,7 @@ namespace C_Lab.Models
             set { 
                 //A12001-A12999
                 if (!Regex.IsMatch(value, @"^A12[0-9]{2}[1-9]{1}$")) 
-                    System.Console.WriteLine("Please check your RollNo");
+                    System.Console.WriteLine("Please check your RollNo (A12001-A12999)");
                 else 
                     _rollNo = value; 
             }
@@ -48,7 +48,7 @@ namespace C_Lab.Models
             get { return _testTime; }
             set {
                 if (value < 1 || value > 4) 
-                    System.Console.WriteLine("Please check your TestTime");
+                    System.Console.WriteLine("Please check your TestTime (1-4)");
                 else 
                     _testTime = value; 
             }
@@ -71,7 +71,7 @@ namespace C_Lab.Models
 
         public void inputMarks_Subject() {
             while(true) {
-                System.Console.Write("Please input Student RollNo(A12001-A12999): ");
+                System.Console.Write("Please input Student RollNo (A12001-A12999): ");
                 this.RollNo = Console.ReadLine();
                 if (!this.RollNo.Equals("")) break;
             }
@@ -83,32 +83,35 @@ namespace C_Lab.Models
             }
 
             while(true) {
-                System.Console.WriteLine("Please input Subject Name: ");
+                System.Console.Write("Please input Subject Name: ");
                 this.Subject = Console.ReadLine();
                 if (!this.Subject.Equals("")) break;
             }
                 
             while(true) {
                 try {
-                    System.Console.Write("Please input Testing time for Subject: ");
+                    System.Console.Write("Please input Testing time for Subject (1-4): ");
                     this.TestTime = Convert.ToInt32(Console.ReadLine());
                 } catch (Exception e) {
                     System.Console.WriteLine(e);
                 }
                 if (TestTime != 0) break;        
             }
+
+            base.inputMarks();
+        }
+
+        public override bool getBonus(){
+            return PassLevel == 1;
         }
 
         public void printMarks() {
-            System.Console.Write($"RollNo: {RollNo} -- StudentName: {StudentName} -- Subject: {Subject} -- Mark: {base.Mark}");
-            if (base.checkPasss() == true) System.Console.WriteLine("-- Status: Passed");
-            else System.Console.WriteLine("-- Status: Failed");
+            System.Console.WriteLine($"RollNo: {RollNo} -- StudentName: {StudentName} -- Subject: {Subject} -- Mark: {base.Mark}");
         }
         
-        public override bool getBonus(){
-            return true;
+        public void printStatus() {
+            System.Console.Write($"RollNo: {RollNo} -- StudentName: {StudentName} -- Subject: {Subject} -- Mark: {base.Mark}");
+            System.Console.WriteLine(" -- Status: {0} -- Bonus: {1}", (base.checkPass() == true) ? "Passed" : "Failed", (this.getBonus() == true) ? "Yes" : "No");
         }
-
-
-    }
+    } 
 }

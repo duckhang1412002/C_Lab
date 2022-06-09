@@ -51,8 +51,8 @@ namespace C_Lab.Models
             get { return _marks[index]; }
             set { 
                 if (_marks[index] < 0 || _marks[index] > 100) {
-                    System.Console.WriteLine("Please check your Marks !!");
-                    _marks[index] = 0;
+                    System.Console.WriteLine("Please check your Marks (0-100)!!");
+                    _marks[index] = -1;
                 } else 
                     _marks[index] = value; 
             }
@@ -116,7 +116,7 @@ namespace C_Lab.Models
                     } catch (Exception) {
                         //nothing
                     }
-                    if (this[i] != 0) break;           
+                    if (this[i] != -1) break;           
                 }
             }
         }

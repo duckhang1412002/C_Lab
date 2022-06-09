@@ -30,7 +30,7 @@ namespace C_Lab.Models
                 if (dt1 <= value && value <= dt2) {
                     _joinedDate = value; 
                 } else 
-                    System.Console.WriteLine("Please check your Birthday");
+                    System.Console.WriteLine("Please check your Joined Date (dd/mm/yyyy)");
                 }
         }
 
@@ -51,7 +51,7 @@ namespace C_Lab.Models
         {
             get { return _subjects[index]; }
             set { 
-                if (_subjects[index].Trim().Equals("")) {
+                if (value.Trim().Equals("")) {
                     System.Console.WriteLine("Please check your Subject !!");
                     _subjects[index] = "";
                 } else 
@@ -78,14 +78,14 @@ namespace C_Lab.Models
         public void inputTeacher() {
             base.inputPeople();
             while(true) {
-                System.Console.Write("Please input Teacher Code: ");
+                System.Console.Write("Please input Teacher Code (A0001-A9999 or B0001-B9999): ");
                 this.TeacherCode = Console.ReadLine();
                 if (!this.TeacherCode.Equals("")) break;
             }
 
             while(true) {
                 try {
-                System.Console.Write("Please input Joined Date: ");
+                System.Console.Write("Please input Joined Date (dd/mm/yyyy): ");
                 this.JoinedDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 } catch (Exception) {
                     //System.Console.WriteLine(e);
@@ -106,12 +106,8 @@ namespace C_Lab.Models
             _subjects = new string[SubjectsSize];
             for (int i = 0; i < SubjectsSize; ++i) {
                 while(true) {
-                    try {
-                        System.Console.Write($"Please input Subject name {i+1}: ");
-                        this[i] = (Console.ReadLine());
-                    } catch (Exception) {
-                        //System.Console.WriteLine(e);
-                    }
+                    System.Console.Write($"Please input Subject {i+1}'s name: ");
+                    this[i] = (Console.ReadLine());
                     if (!this[i].Equals("")) break;           
                 }
             }
