@@ -232,10 +232,10 @@ namespace C_Lab {
             Console.Clear();
             while(true) {
                 bool stop = false;
-                System.Console.WriteLine("----- Manage Subject -----");
-                System.Console.WriteLine("1. Input Subject");
+                System.Console.WriteLine("----- Manage Marks -----");
+                System.Console.WriteLine("1. Input Marks");
                 System.Console.WriteLine("2. Display Subject Total lessons");
-                System.Console.WriteLine("3. Display Information");
+                System.Console.WriteLine("3. Display Subject Information");
                 System.Console.WriteLine("4. Back");
                 while(true) {
                     System.Console.Write("Please choose one (1-4): ");
