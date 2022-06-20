@@ -11,11 +11,12 @@ namespace C_Lab.Models
         {
             get { return _subjectCode; }
             set {       
-                if (!Regex.IsMatch(value, @"^[a-zA-Z]{6}$")) {
+                while (!Regex.IsMatch(value, @"^[a-zA-Z]{6}$")) {
                     System.Console.WriteLine("Please check your SubjectCode (6 characters)");
-                } else {
-                    _subjectCode = value;
-                }
+                    System.Console.Write("Please input SubjectCode: ");
+                    value = Console.ReadLine();
+                } 
+                _subjectCode = value;
             }
         }
 
@@ -24,10 +25,12 @@ namespace C_Lab.Models
         {
             get { return _subjectName; }
             set { 
-                if (value.Length > 50 || value.Length == 0) 
+                while (value.Length > 50 || value.Length == 0) {
                     System.Console.WriteLine("Please check your SubjectName (can not be null and less than 50 charaters)");
-                else 
-                    _subjectName = value; 
+                    System.Console.Write("Please input SubjectName: ");
+                    value = Console.ReadLine();
+                }
+                _subjectName = value; 
             }
         }
         
@@ -37,10 +40,16 @@ namespace C_Lab.Models
         {
             get { return _practice; }
             set { 
-                if (value < 0 || value > 100) 
+                while (value < 0 || value > 100) {
                     System.Console.WriteLine("Please check Number of Practice lesson(0-100)");
-                else 
-                    _practice = value; 
+                    System.Console.Write("Please input Number of Practice lessons: ");
+                    try {
+                        value = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception) {
+                        continue;
+                    }
+                }
+                _practice = value; 
             }
         }
         
@@ -49,10 +58,16 @@ namespace C_Lab.Models
         {
             get { return _theory; }
             set { 
-                if (value < 0 || value > 100) 
+                while (value < 0 || value > 100) {
                     System.Console.WriteLine("Please check Number of Theory lesson(0-100)");
-                else 
-                    _theory = value; 
+                    System.Console.Write("Please input Number of Theory lessons: ");
+                    try {
+                        value = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception) {
+                        continue;
+                    }
+                }
+                _theory = value; 
             }
         }
 
@@ -73,32 +88,31 @@ namespace C_Lab.Models
         public override string ToString() => $"{SubjectCode} -- {SubjectName} -- {getTotalLessons()}";
     
         public void inputSubject() {
-            while(true) {
-                System.Console.WriteLine("Please input Subject Code: ");
-                this.SubjectCode = Console.ReadLine();
-                if (!this.SubjectCode.Equals("")) break;
-            }
-
-            while(true) {
-                System.Console.WriteLine("Please input Subject Name: ");
-                this.SubjectName = Console.ReadLine();
-                if (!this.SubjectName.Equals("")) break;
-            }
+            System.Console.WriteLine("Please input Subject Code: ");
+            this.SubjectCode = Console.ReadLine();
+            System.Console.WriteLine("Please input Subject Name: ");
+            this.SubjectName = Console.ReadLine();
 
             while(true) {
                 System.Console.WriteLine("Please input number of Theory lesson");
                 try {
                     this.Theory = Convert.ToInt32(Console.ReadLine());
-                } catch (Exception) {}
-                if (Theory != -1) break;
+                } catch (Exception) {
+                    System.Console.WriteLine("Please input a number!!!");
+                    continue;
+                }
+                break;
             }
 
             while(true) {
                 System.Console.WriteLine("Please input number of Practice lesson");
                 try {
-                this.Practice = Convert.ToInt32(Console.ReadLine());
-                } catch (Exception) {}
-                if (Practice != -1) break;
+                    this.Practice = Convert.ToInt32(Console.ReadLine());
+                } catch (Exception) {
+                    System.Console.WriteLine("Please input a number!!!");
+                    continue;
+                }
+                break;
             }
         }
 

@@ -11,10 +11,12 @@ namespace C_Lab.Models
             get { return _rollNo; }
             set { 
                 //A12001-A12999
-                if (!Regex.IsMatch(value, @"^A12[0-9]{2}[1-9]{1}$")) 
+                while (!Regex.IsMatch(value, @"^A12[0-9]{2}[1-9]{1}$")) {
                     System.Console.WriteLine("Please check your RollNo (A12001-A12999)");
-                else 
-                    _rollNo = value; 
+                    System.Console.Write("Please input RollNo: ");
+                    value = Console.ReadLine();
+                } 
+                _rollNo = value; 
             }
         }
 
@@ -23,10 +25,12 @@ namespace C_Lab.Models
         {
             get { return _studentName; }
             set { 
-                if (!Regex.IsMatch(value, @"^[A-Z a-z]{1,50}$")) 
+                while (!Regex.IsMatch(value, @"^[A-Za-z][A-Z a-z]+$") || value.Length > 50) { 
                     System.Console.WriteLine("Please check your StudentName");
-                else 
-                    _studentName = value; 
+                    System.Console.Write("Please input Student Name: ");
+                    value = Console.ReadLine();
+                }
+                _studentName = value; 
             }
         }
 
@@ -35,10 +39,12 @@ namespace C_Lab.Models
         {
             get { return _subject; }
             set { 
-                if (value.Trim().Equals(""))
-                    System.Console.WriteLine("Please check your Subject");
-                else 
-                    _subject = value; 
+                while (!Regex.IsMatch(value, @"^[a-zA-Z]{6}$")) {
+                    System.Console.WriteLine("Please check your SubjectCode (6 characters)");
+                    System.Console.Write("Please input SubjectCode: ");
+                    value = Console.ReadLine();
+                } 
+                _subject = value; 
             }
         }
         
@@ -47,10 +53,11 @@ namespace C_Lab.Models
         {
             get { return _testTime; }
             set {
-                if (value < 1 || value > 4) 
+                while (value < 1 || value > 4) {
                     System.Console.WriteLine("Please check your TestTime (1-4)");
-                else 
-                    _testTime = value; 
+                    System.Console.Write("Please input Test time: ");
+                }
+                _testTime = value; 
             }
         }
         
@@ -70,32 +77,22 @@ namespace C_Lab.Models
         }
 
         public void inputMarks_Subject() {
-            while(true) {
-                System.Console.Write("Please input Student RollNo (A12001-A12999): ");
-                this.RollNo = Console.ReadLine();
-                if (!this.RollNo.Equals("")) break;
-            }
-
-            while(true) {
-                System.Console.Write("Please input Student Name: ");
-                this.StudentName = Console.ReadLine();
-                if (!this.StudentName.Equals("")) break;     
-            }
-
-            while(true) {
-                System.Console.Write("Please input Subject Name: ");
-                this.Subject = Console.ReadLine();
-                if (!this.Subject.Equals("")) break;
-            }
+            System.Console.Write("Please input Student RollNo (A12001-A12999): ");
+            this.RollNo = Console.ReadLine();
+            System.Console.Write("Please input Student Name: ");
+            this.StudentName = Console.ReadLine();
+            System.Console.Write("Please input Subject Code: ");
+            this.Subject = Console.ReadLine();
                 
             while(true) {
                 try {
                     System.Console.Write("Please input Testing time for Subject (1-4): ");
                     this.TestTime = Convert.ToInt32(Console.ReadLine());
-                } catch (Exception e) {
-                    System.Console.WriteLine(e);
+                } catch (Exception) {
+                    System.Console.WriteLine("Please input a number!!!");
+                    continue;
                 }
-                if (TestTime != 0) break;        
+                break;        
             }
 
             base.inputMarks();

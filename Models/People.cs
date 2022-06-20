@@ -4,16 +4,18 @@ using System.Globalization;
 
 namespace C_Lab.Models
 {
-    public class People {
+    public abstract class People {
         protected string _id;
         public string ID
         {
             get { return _id; }
             set { 
-                if (!Regex.IsMatch(value, @"^[0-9]{9}$")) 
+                while (!Regex.IsMatch(value, @"^[0-9]{9}$")) {
                     System.Console.WriteLine("Please check your ID(9 digit number)");
-                else 
-                    _id = value; 
+                    System.Console.Write("Please input ID(9 digits): ");
+                    value = Console.ReadLine();
+                }
+                _id = value; 
             }
         }
 
@@ -22,20 +24,14 @@ namespace C_Lab.Models
         {
             get { return _fullName; }
             set { 
-                if (!Regex.IsMatch(value, @"^[A-Z a-z]{1,50}$")) 
+                while (!Regex.IsMatch(value, @"^[A-Za-z][A-Z a-z]+$") || value.Length > 50) { 
                     System.Console.WriteLine("Please check your FullName");
-                else 
-                    _fullName = value; 
+                    System.Console.Write("Please input FullName: ");
+                    value = Console.ReadLine();
+                }
+                _fullName = value; 
             }
         }
-        
-        protected int _age;
-        public int Age
-        {
-            get { return _age; }
-            set { _age = value; }
-        }
-        
 
         protected DateTime _birthDay;
         public DateTime BirthDay
@@ -44,11 +40,17 @@ namespace C_Lab.Models
             set { 
                 DateTime dt1 = DateTime.Parse("01/01/1900");
                 DateTime dt2 = DateTime.Now;
-                if (dt1 <= value && value <= dt2) {
-                    _birthDay = value; 
-                    Age = dt2.Year - value.Year;
-                } else 
-                    System.Console.WriteLine("Please check your Birthday (dd/mm/yyyy)");
+                while (value < dt1 || value > dt2) {
+                    System.Console.WriteLine("Please check your Birthday (dd/mm/yyyy)");      
+                    System.Console.Write("Please input Birthday: ");     
+                    try {
+                        value = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);       
+                    } 
+                    catch (Exception) {
+                        continue;
+                    }
+                } 
+                _birthDay = value;  
             }
         }
         
@@ -57,10 +59,13 @@ namespace C_Lab.Models
         {
             get { return _address; }
             set {
-                if (value.Trim().Equals(""))
+                while (value.Trim().Equals("")) {
                     System.Console.WriteLine("Please check your Address"); 
-                else 
-                    _address = value; }
+                    System.Console.Write("Please input Address: ");
+                    value = Console.ReadLine();
+                }
+                _address = value; 
+            }
         }
         
         protected string _email;
@@ -68,10 +73,12 @@ namespace C_Lab.Models
         {
             get { return _email; }
             set { 
-                if (!Regex.IsMatch(value, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")) 
+                while (!Regex.IsMatch(value, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")) {
                     System.Console.WriteLine("Please check your Email (Ex: abc@email.com)");
-                else 
-                    _email = value; 
+                    System.Console.Write("Please input Email: ");
+                    value = Console.ReadLine();
+                }
+                _email = value; 
             }
         }
         
@@ -80,84 +87,70 @@ namespace C_Lab.Models
         {
             get { return _phone; }
             set { 
-                if (!Regex.IsMatch(value, @"^[0-9]{10,11}")) 
+                while (!Regex.IsMatch(value, @"^[\+\d{2}|0]\d{9,}")) {
                     System.Console.WriteLine("Please check your Phone (10 or 11 numbers)");
-                else 
-                    _phone = value; 
+                    System.Console.Write("Please input Phone: ");
+                    value = Console.ReadLine();
+                }
+                _phone = value; 
             }
         }
 
         public People(){
-            _age = 0;
-            _id = _fullName = _address = _email = _phone = "";
-            _birthDay = new DateTime();
+            // _id = _fullName = _address = _email = _phone = "";
+            // _birthDay = new DateTime();
         }
 
         public People(string FullName)
         {
-            this._fullName = FullName;
+            this.FullName = FullName;
         }
 
         public People(string ID, string FullName, DateTime BirthDay, string Address, string Email, string Phone) {
-            this._id = ID;
-            this._fullName = FullName;
-            this._birthDay = BirthDay;
-            this._address = Address;
-            this._email = Email;
-            this._phone = Phone;
+            this.ID = ID;
+            this.FullName = FullName;
+            this.BirthDay = BirthDay;
+            this.Address = Address;
+            this.Email = Email;
+            this.Phone = Phone;
         }
 
-        public override string ToString() {
-            return $"{FullName} --- {Age} --- {Phone}"; 
+        public int getAge() {
+            return DateTime.Now.Year - BirthDay.Year;
         }
 
         public void inputPeople() {
-            while(true) {
-                System.Console.Write("Please input ID(9 digits): ");
-                this.ID = Console.ReadLine();
-                if (!this.ID.Equals("")) break;
-            }
-
-            while(true) {
-                System.Console.Write("Please input FullName: ");
-                this.FullName = Console.ReadLine();
-                if (!this.FullName.Equals("")) break;     
-            }
+            System.Console.Write("Please input ID(9 digits): ");
+            this.ID = Console.ReadLine();
+            System.Console.Write("Please input FullName: ");
+            this.FullName = Console.ReadLine();
 
             while(true) {
                 try {
                 System.Console.Write("Please input BirthDay (dd/mm/yyyy): ");
                 this.BirthDay = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 } 
-                #pragma warning disable 0168 
-                catch (Exception) 
-                {
-                    //nothing
+                catch (Exception) {
+                    System.Console.WriteLine("Please check your Birthday (dd/mm/yyyy)");
+                    continue;
                 }
-                if (this.BirthDay != (new DateTime())) break;
+                break;
             }
             
-            while(true) {
-                System.Console.Write("Please input Address: ");
-                this.Address = Console.ReadLine();
-                if (!this.Address.Equals("")) break;   
-            }
-
-            while(true) {
-                System.Console.Write("Please input Email (Ex: abc@email.com): ");
-                this.Email = Console.ReadLine();
-                if (!this.Email.Equals("")) break;   
-            }
-
-            while(true) {
-                System.Console.Write("Please input Phone (10 or 11 digits): ");
-                this.Phone = Console.ReadLine();
-                if (!this.Phone.Equals("")) break;   
-            }
+            System.Console.Write("Please input Address: ");
+            this.Address = Console.ReadLine();
+            System.Console.Write("Please input Email (Ex: abc@email.com): ");
+            this.Email = Console.ReadLine();
+            System.Console.Write("Please input Phone (10 or 11 digits): ");
+            this.Phone = Console.ReadLine();
         }
 
-        public void printInfo() {
-            System.Console.Write($"Full name: {FullName} - Birthday: {BirthDay.ToString("dd/MM/yyyy")}");
+        public abstract void printInfo();
+            //System.Console.Write($"Full name: {FullName} - Birthday: {BirthDay.ToString("dd/MM/yyyy")}");
+        
+
+        public override string ToString() {
+            return $"{FullName} --- {getAge()} --- {Phone}"; 
         }
         
     }

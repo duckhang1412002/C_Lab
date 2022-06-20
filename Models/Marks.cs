@@ -9,11 +9,16 @@ namespace C_Lab.Models
         {
             get { return _mark; }
             set {
-                if (value < 0 || value > 100) {
+                while (value < 0 || value > 100) {
                     System.Console.WriteLine("Please check your mark input"); 
-                    _mark = -1;
-                } else 
-                    _mark = value; 
+                    System.Console.Write("Please input Mark: ");
+                    try {
+                        value = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception) {
+                        continue;
+                    }
+                } 
+                _mark = value; 
             }
         }
 
@@ -22,11 +27,16 @@ namespace C_Lab.Models
         {
             get { return _passLevel; }
             set {
-                if (value < 40 || value > 100) {
-                    System.Console.WriteLine("Please check your mark input"); 
-                    _passLevel = -1;
-                } else 
-                    _passLevel = value; 
+                while (value < 40 || value > 100) {
+                    System.Console.WriteLine("Please check your pass Level"); 
+                    System.Console.Write("Please input Pass Level: ");
+                    try {
+                        value = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception) {
+                        continue;
+                    }
+                } 
+                _passLevel = value; 
             }
         }
 
@@ -46,20 +56,22 @@ namespace C_Lab.Models
                 try {
                     System.Console.Write("Please input Marks of Subject(0-100): ");
                     this.Mark = Convert.ToInt32(Console.ReadLine());
-                } catch (Exception e) {
-                    System.Console.WriteLine(e);
+                } catch (Exception) {
+                    System.Console.WriteLine("Pease input a number!");
+                    continue;
                 }
-                if (Mark != -1) break;        
+                break;        
             }
 
             while(true) {
                 try {
                     System.Console.Write("Please input Pass Level for Subject(40-100): ");
                     this.PassLevel = Convert.ToInt32(Console.ReadLine());
-                } catch (Exception e) {
-                    System.Console.WriteLine(e);
+                } catch (Exception) {
+                    System.Console.WriteLine("Pease input a number!");
+                    continue;
                 }
-                if (PassLevel != -1) break;        
+                break;        
             }
         }
         

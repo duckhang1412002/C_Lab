@@ -11,10 +11,12 @@ namespace C_Lab.Models
             get { return _rollNo; }
             set {
                 //A12001-A12999
-                if (!Regex.IsMatch(value, @"^A12[0-9]{2}[1-9]{1}$")) 
+                while (!Regex.IsMatch(value, @"^A12[0-9]{2}[1-9]{1}$")) {
                     System.Console.WriteLine("Please check your RollNo !!(A12001-A12999)");
-                else 
-                    _rollNo = value; 
+                    System.Console.Write("Please input your RollNo: ");
+                    value = Console.ReadLine();
+                }
+                _rollNo = value; 
             }
         }
         
@@ -25,10 +27,12 @@ namespace C_Lab.Models
             set { 
                 //CP / DI / DM + year + month + G/H/I/J/K/F/M + xx
                 //Ex: CP201210G17 or DM201301M05
-                if (!Regex.IsMatch(value, @"^((CP)|(DI)|(DM))[1-9]{1}[0-9]{3}(0?[1-9]|1[012])[GHIJKFM]{1}[0-9]{2}$"))
+                while (!Regex.IsMatch(value, @"^((CP)|(DI)|(DM))[1-9]{1}[0-9]{3}(0?[1-9]|1[012])[GHIJKFM]{1}[0-9]{2}$")) {
                     System.Console.WriteLine("Please check your ClassNo !!(Ex: CP201210G17 or DM201301M05)");
-                else 
-                    _classNo = value; 
+                    System.Console.Write("Please input your ClassNo: ");
+                    value = Console.ReadLine();
+                }
+                _classNo = value; 
             }
         }
         
@@ -37,10 +41,17 @@ namespace C_Lab.Models
         {
             get { return _marksSize; }
             set { 
-                if (value < 0) 
-                    System.Console.WriteLine("Please check your Number of Subject !!");
-                else 
-                    _marksSize = value; 
+                while (value < 0) {
+                    System.Console.WriteLine("Please check your Number of mark !!");
+                    try {
+                        System.Console.Write("Please input your Number of marks");
+                        value = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception) {
+                        continue;
+                    }
+                }
+                _marksSize = value; 
+                _marks = new int[_marksSize];
             }
         }
         
@@ -50,11 +61,16 @@ namespace C_Lab.Models
         {
             get { return _marks[index]; }
             set { 
-                if (_marks[index] < 0 || _marks[index] > 100) {
-                    System.Console.WriteLine("Please check your Marks (0-100)!!");
-                    _marks[index] = -1;
-                } else 
-                    _marks[index] = value; 
+                while (_marks[index] < 0 || _marks[index] > 100) {
+                    System.Console.WriteLine("Please check your Mark (0-100)!!");
+                    try {
+                        System.Console.Write("Please input your Mark: ");
+                        value = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception) {
+                        continue;
+                    }
+                } 
+                _marks[index] = value; 
             }
         }
 
@@ -85,45 +101,45 @@ namespace C_Lab.Models
 
         public void inputStudent() {
             base.inputPeople();
-            while(true) {
-                System.Console.Write("Please input Student RollNo(A12001-A12999): ");
-                this.RollNo = Console.ReadLine();
-                if (!this.RollNo.Equals("")) break;
-            }
+            System.Console.Write("Please input Student RollNo(A12001-A12999): ");
+            this.RollNo = Console.ReadLine();
+            System.Console.Write("Please input Student ClassNo(Ex: CP201210G17 or DM201301M05): ");
+            this.ClassNo = Console.ReadLine();
 
-            while(true) {
-                System.Console.Write("Please input Student ClassNo(Ex: CP201210G17 or DM201301M05): ");
-                this.ClassNo = Console.ReadLine();
-                if (!this.ClassNo.Equals("")) break;
-            }
-
+            //input Size of indexer
             while(true) {
                 try {
-                    System.Console.Write("Please input Number of Subject: ");
+                    System.Console.Write("Please input Number of Marks: ");
                     this.MarksSize = Convert.ToInt32(Console.ReadLine());
                 } catch (Exception) {
-                    //nothing
+                    System.Console.WriteLine("Please input a number!!");
+                    continue;
                 }
-                if (_marksSize != 0) break;        
+                break;       
             }
-
-            _marks = new int[_marksSize];
+            
             for (int i = 0; i < MarksSize; ++i) {
                 while(true) {
                     try {
                         System.Console.Write($"Please input Marks for Subject {i+1}: ");
                         this[i] = Convert.ToInt32(Console.ReadLine());
                     } catch (Exception) {
-                        //nothing
+                        System.Console.WriteLine("Please input a number!!");
+                        continue;
                     }
-                    if (this[i] != -1) break;           
+                    break;       
                 }
             }
         }
 
-        public new void printInfo() {
-            base.printInfo();
+        public override void printInfo()
+        {
             System.Console.WriteLine($" - RollNo: {RollNo} - ClassNo: {ClassNo}");
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"--- RollNo: {RollNo} --- ClassNo: {ClassNo}";
         }
     }
 }

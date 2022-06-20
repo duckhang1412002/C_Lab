@@ -12,10 +12,12 @@ namespace C_Lab.Models
             get { return _teacherCode; }
             set { 
                 //A0001 to A9999 or B0001-B9999
-                if (!Regex.IsMatch(value, @"^[AB]{1}[0-9]{3}[1-9]{1}$")) 
+                while (!Regex.IsMatch(value, @"^[AB]{1}[0-9]{3}[1-9]{1}$")) {
                     System.Console.WriteLine("Please check your TeacherCode !!(A0001-A9999 or B0001-B9999)");
-                else 
-                    _teacherCode = value; 
+                    System.Console.Write("Please input your TeacherCode: ");
+                    value = Console.ReadLine();
+                }
+                _teacherCode = value; 
             }
         }
         
@@ -27,11 +29,18 @@ namespace C_Lab.Models
             set { 
                 DateTime dt1 = DateTime.Parse("01/01/1900");
                 DateTime dt2 = DateTime.Now;
-                if (dt1 <= value && value <= dt2) {
-                    _joinedDate = value; 
-                } else 
+                while (dt1 > value && value > dt2) {
                     System.Console.WriteLine("Please check your Joined Date (dd/mm/yyyy)");
+                    try {
+                        System.Console.Write("Please input Joined Date: ");
+                        value = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    } catch (Exception) {
+                        continue;
+                    }
+
                 }
+                _joinedDate = value; 
+            }
         }
 
         private int _subjectsSize;
@@ -39,10 +48,16 @@ namespace C_Lab.Models
         {
             get { return _subjectsSize; }
             set { 
-                if (value < 0) 
+                while (value < 0) { 
                     System.Console.WriteLine("Please check your Number of Subject !!");
-                else 
-                    _subjectsSize = value; 
+                    System.Console.Write("Please input Number of Subject: ");
+                    try {
+                        value = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception) {
+                        continue;
+                    }
+                }
+                _subjectsSize = value; 
             }
         }
 
@@ -51,11 +66,12 @@ namespace C_Lab.Models
         {
             get { return _subjects[index]; }
             set { 
-                if (value.Trim().Equals("")) {
-                    System.Console.WriteLine("Please check your Subject !!");
-                    _subjects[index] = "";
-                } else 
-                    _subjects[index] = value; 
+                while (!Regex.IsMatch(value, @"^[a-zA-Z]{6}$")) {
+                    System.Console.WriteLine("Please check your SubjectCode (6 characters)");
+                    System.Console.Write("Please input SubjectCode: ");
+                    value = Console.ReadLine();
+                } 
+                _subjects[index] = value; 
             }
         }
 
@@ -77,45 +93,40 @@ namespace C_Lab.Models
 
         public void inputTeacher() {
             base.inputPeople();
+            System.Console.Write("Please input Teacher Code (A0001-A9999 or B0001-B9999): ");
+            this.TeacherCode = Console.ReadLine();
+            
             while(true) {
-                System.Console.Write("Please input Teacher Code (A0001-A9999 or B0001-B9999): ");
-                this.TeacherCode = Console.ReadLine();
-                if (!this.TeacherCode.Equals("")) break;
-            }
-
-            while(true) {
-                try {
                 System.Console.Write("Please input Joined Date (dd/mm/yyyy): ");
-                this.JoinedDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                try {
+                    this.JoinedDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 } catch (Exception) {
-                    //System.Console.WriteLine(e);
+                    System.Console.WriteLine("Please input a valid date!");
+                    continue;
                 }
-                if (this.JoinedDate != (new DateTime())) break;
+                break;
             }
 
             while(true) {
+                System.Console.Write("Please input Number of Subjects: ");
                 try {
-                    System.Console.Write("Please input Number of Subject: ");
                     this.SubjectsSize = Convert.ToInt32(Console.ReadLine());
                 } catch (Exception) {
-                    //System.Console.WriteLine(e);
+                    System.Console.WriteLine("Please input a number!!");
+                    continue;
                 }
-                if (SubjectsSize != 0) break;        
+                break;        
             }
 
             _subjects = new string[SubjectsSize];
             for (int i = 0; i < SubjectsSize; ++i) {
-                while(true) {
-                    System.Console.Write($"Please input Subject {i+1}'s name: ");
-                    this[i] = (Console.ReadLine());
-                    if (!this[i].Equals("")) break;           
-                }
+                System.Console.Write($"Please input Subject {i+1}'s code: ");
+                this[i] = (Console.ReadLine());       
             }
             
         }
 
-        public new void printInfo() {
-            base.printInfo();
+        public override void printInfo() {
             System.Console.WriteLine($" - TeacherCode: {TeacherCode} - Joined Date: {JoinedDate.ToString("dd/MM/yyyy")}");          
         }
 
